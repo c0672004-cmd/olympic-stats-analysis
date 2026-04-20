@@ -1,5 +1,3 @@
-# olympic-stats-analysis
-
 # 🏅 Olympic Success: A Statistical Socio-Economic Study
 **By: Yuanyuan Wei** | *Maths & Stats Graduate* | 📍 Montreal, QC (PR Holder)
 
