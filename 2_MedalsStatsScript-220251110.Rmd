@@ -1,0 +1,359 @@
+---
+title: "MAS31004 - individual project"
+author: "yuanyuan wei"
+date: "2024-11-13"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r setup2, include=FALSE, echo = TRUE, cache = TRUE, warning = FALSE, message = FALSE}
+set.seed(1234)
+```
+
+The analysis employs R packages like dplyr, ggplot2, and tidyr for data manipulation and visualization.
+
+The dataset was cleaned to remove missing values, ensuring a reliable analysis of total medals, weighted scores, and economic indicators.
+```{r}
+#import the packages 
+library(dplyr)
+
+library(ggplot2)
+
+library(tidyr)
+
+library(carData)
+
+library(car)  # For VIF calculation
+```
+
+
+```{r}
+#load the data
+setwd("~/Desktop")
+data <- read.csv("MedalsStatsData-220251110.csv")
+
+#rename the columns
+library(dplyr)
+
+data <- data %>%
+
+  rename(
+
+    total_medals = total_medals,
+
+    weighted_score = weighted_score,
+
+    medals_per_capita = medals_per_capita,
+
+    population = population,
+
+    GDP = GDP..in.millions.,
+
+    GDP_per_capita = GDP_per_capita
+
+  )
+
+print(colnames(data))
+```
+
+```{r}
+#check the missing values 
+sapply(data[c("total_medals", "weighted_score", "medals_per_capita", "population", "GDP", "GDP_per_capita")], function(x) sum(is.na(x)))
+
+#clean the data
+data_clean <- na.omit(data[c("total_medals", "weighted_score", "medals_per_capita", "population", "GDP", "GDP_per_capita")])
+```
+
+```{r}
+descriptive_stats <- data_clean %>%
+
+  summarise(
+
+    total_medals_mean = mean(total_medals, na.rm = TRUE),
+
+    total_medals_median = median(total_medals, na.rm = TRUE),
+
+    total_medals_range = paste(min(total_medals, na.rm = TRUE), max(total_medals, na.rm = TRUE), sep = " to "),
+
+    weighted_score_mean = mean(weighted_score, na.rm = TRUE),
+
+    weighted_score_median = median(weighted_score, na.rm = TRUE),
+
+    weighted_score_range = paste(min(weighted_score, na.rm = TRUE), max(weighted_score, na.rm = TRUE), sep = " to "),
+
+    medals_per_capita_mean = mean(medals_per_capita, na.rm = TRUE),
+
+    medals_per_capita_median = median(medals_per_capita, na.rm = TRUE),
+
+    medals_per_capita_range = paste(min(medals_per_capita, na.rm = TRUE), max(medals_per_capita, na.rm = TRUE), sep = " to ")
+
+  )
+
+print(descriptive_stats)
+```
+
+# Correlation
+
+The correlation matrix reveals important relationships between our variables:
+
+-   Strong Positive Correlations:
+    -   Total Medals and Weighted Score: r = 0.9965
+    -   Population and GDP: r = 0.8104
+    -   Total Medals and GDP: r = 0.7695
+    -   Weighted Score and GDP: r = 0.7846
+-   Moderate Positive Correlations:
+    -   Total Medals and Population: r = 0.3925
+    -   Total Medals and GDP per Capita: r = 0.2692
+-   Weak Positive Correlations:
+    -   Medals per Capita and Population: r = -0.1211
+    -   Medals per Capita and GDP: r = -0.1149
+-   Negligible Correlation:
+    -   Medals per Capita and GDP per Capita: r = -0.0076
+    
+Moderate to weak correlations suggest that larger or wealthier countries do not always perform better on a per capita basis.
+```{r}
+correlation_matrix <- cor(data_clean)
+
+print(correlation_matrix)
+```
+
+# Visual Analysis
+
+```{r}
+pairs(data_clean, pch = 21, bg = c("pink"))
+```
+
+# Regression
+
+```{r}
+model_total_medals <- lm(total_medals ~ population + GDP + GDP_per_capita, data = data_clean)
+
+model_weighted_score <- lm(weighted_score ~ population + GDP + GDP_per_capita, data = data)
+
+model_medals_per_capita <- lm(medals_per_capita ~ GDP_per_capita, data = data)
+
+summary(model_total_medals)
+
+summary(model_weighted_score)
+
+summary(model_medals_per_capita)
+
+#Check for multicollinearity
+
+vif(model_total_medals)
+
+vif(model_weighted_score)
+```
+
+## graphs
+
+```{r}
+#total medals log scale graph 
+ggplot(data, aes(x = GDP, y = total_medals)) +
+
+  geom_point(color = "blue", alpha = 0.6, size = 2) +  # Increase point size
+
+  geom_smooth(method = "lm", color = "red", se = TRUE) +  # Add confidence interval
+
+  scale_x_log10() +  # Log scale for GDP
+
+  labs(title = "Total Medals vs. GDP (Log Scale)",
+
+       x = "GDP (in millions, log scale)",
+
+       y = "Total Medals") +
+
+  theme_minimal(base_size = 15) +  # Increase base size for readability
+
+  theme(plot.title = element_text(hjust = 0.5),  # Center title
+
+        panel.grid.major = element_line(color = "grey80"),  # Light grid lines
+
+        panel.grid.minor = element_blank(),  # Remove minor grid lines
+
+        axis.text = element_text(size = 12),  # Axis text size
+
+        axis.title = element_text(size = 14))  # Axis title size
+```
+
+```{r}
+# Create the Weighted Score vs. GDP graph with enhancements
+
+ggplot(data, aes(x = GDP, y = weighted_score)) +
+
+  geom_point(color = "green", alpha = 0.6, size = 2) +  # Increase point size
+
+  geom_smooth(method = "lm", color = "orange", se = TRUE) +  # Add confidence interval
+
+  scale_x_log10() +  # Log scale for GDP
+
+  labs(title = "Weighted Score vs. GDP (Log Scale)",
+
+       x = "GDP (in millions, log scale)",
+
+       y = "Weighted Score") +
+
+  theme_minimal(base_size = 15) +  # Increase base size for readability
+
+  theme(plot.title = element_text(hjust = 0.5),  # Center title
+
+        panel.grid.major = element_line(color = "grey80"),  # Light grid lines
+
+        panel.grid.minor = element_blank(),  # Remove minor grid lines
+
+        axis.text = element_text(size = 12),  # Axis text size
+
+        axis.title = element_text(size = 14))  # Axis title size
+```
+
+```{r}
+#medals per capita vs GDP per capita
+ggplot(data, aes(x = GDP_per_capita, y = medals_per_capita)) +
+
+  geom_point(color = "purple", alpha = 0.6) +
+
+  geom_smooth(method = "lm", color = "magenta") +
+
+  labs(title = "Medals Per Capita vs. GDP Per Capita",
+
+       x = "GDP Per Capita",
+
+       y = "Medals Per Capita") +
+
+  theme_minimal()
+```
+
+# Regional Analysis
+
+```{r}
+library(dplyr)
+regional_stats <- data %>%
+
+  group_by(region) %>%
+
+  summarise(
+
+    avg_total_medals = mean(total_medals, na.rm = TRUE),
+
+    avg_weighted_score = mean(weighted_score, na.rm = TRUE),
+
+    avg_medals_per_capita = mean(medals_per_capita, na.rm = TRUE)
+
+  )
+
+print(regional_stats)
+```
+
+
+
+```{r}
+#ANOVA for regional differences
+anova_total_medals <- aov(total_medals ~ region, data = data)
+summary(anova_total_medals)
+
+avg_weighted_score <- aov(weighted_score ~ region, data = data)
+summary(avg_weighted_score)
+
+avg_medals_per_capita <- aov(medals_per_capita ~ region, data = data)
+summary(avg_medals_per_capita)
+```
+
+# Visualisation
+
+```{r}
+# Visualization: Box plots for regional comparison
+
+library(ggplot2)
+
+ggplot(data, aes(x = region, y = total_medals)) +
+
+  geom_boxplot() +
+
+  theme_minimal() +
+
+  labs(title = "Distribution of Total Medals by Region", x = "Region", y = "Total Medals") +
+
+  theme(
+
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8)  # Adjust size and angle of x-axis text
+
+  )
+```
+
+
+```{r}
+# Visualization: Box plots for regional comparison of Weighted Scores 
+library(ggplot2)
+
+ggplot(data, aes(x = region, y = weighted_score)) +
+
+  geom_boxplot() +
+
+  theme_minimal() +
+
+  labs(title = "Distribution of Weighted Score by Region", x = "Region", y = "Weighted Score") +
+
+  theme(
+
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8)  # Adjust size and angle of x-axis text
+
+  )
+```
+
+```{r}
+# Visualization: Box plots for regional comparison of Medals per Capita
+library(ggplot2)
+
+ggplot(data, aes(x = region, y = medals_per_capita)) +
+
+  geom_boxplot() +
+
+  theme_minimal() +
+
+  labs(title = "Distribution of Medals per Capita by Region", x = "Region", y = "Medals per Capita") +
+
+  theme(
+
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8)  # Adjust size and angle of x-axis text
+
+  )
+```
+
+# efficiency analysis
+
+We calculated an efficiency index to identify countries that perform exceptionally well relative to their economic resources:
+```{r}
+#Efficiency Analysis
+
+data <- data %>%
+
+  mutate(efficiency_index = weighted_score / (GDP / 1e9))
+
+top_efficient_countries <- data %>%
+
+  arrange(desc(efficiency_index)) %>%
+
+  select(country, efficiency_index) %>%
+
+  head(10)
+
+print(top_efficient_countries)
+```
+
+```{r}
+rmarkdown::render("MedalsStatsScript-220251110.Rmd", output_format="pdf_document")
+```
+
+
+
+
+
+
+
+
