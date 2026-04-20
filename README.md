@@ -23,7 +23,7 @@ This project investigates the relationship between a nation's socio-economic fac
 To ensure transparency and reproducibility, all source files are provided below:
 
 *   **R Analysis Script:** [analysis_script.R](2_MedalsStatsScript-220251110.Rmd) — *Contains full data cleaning, regression modeling, and ANOVA logic.*
-*   **Primary Dataset:** [MedalsStatsData.csv](1_MedalsStatsData-220251110 copy.csv) — *The processed dataset combining Olympic history and economic indicators.*
+*   **Primary Dataset:** [MedalsStatsData.csv](1_MedalsStatsData-220251110%20copy.csv) — *The processed dataset combining Olympic history and economic indicators.*
 *   **Full Report:** [📄 View Full Statistical Report (PDF)](https://github.com/c0672004-cmd/olympic-stats-analysis/raw/main/2_MedalsStatsReport%20-%20220251110.pdf)
 
 ---
