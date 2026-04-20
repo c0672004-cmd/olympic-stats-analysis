@@ -18,9 +18,13 @@ This project investigates the relationship between a nation's socio-economic fac
 - **Economic Correlation:** Found a strong positive correlation (r = 0.77) between GDP and Total Medals.
 - **Efficiency Index:** Developed a custom KPI to identify "over-performing" nations.
 - **Log-Scale Modeling:** Used log-transformation to normalize highly skewed GDP data for more accurate regression results.
+  
+## 📂 Project Assets
+To ensure transparency and reproducibility, all source files are provided below:
 
-## 📄 Full Report
-[📄 View Full Statistical Report (PDF)](https://github.com/c0672004-cmd/olympic-stats-analysis/raw/main/2_MedalsStatsReport%20-%20220251110.pdf)
+*   **R Analysis Script:** [analysis_script.R](./2_MedalsStatsScript-220251110.R) — *Contains full data cleaning, regression modeling, and ANOVA logic.*
+*   **Primary Dataset:** [MedalsStatsData.csv](./1_MedalsStatsData-220251110.csv) — *The processed dataset combining Olympic history and economic indicators.*
+*   **Full Report:** [📄 View Full Statistical Report (PDF)](https://github.com/c0672004-cmd/olympic-stats-analysis/raw/main/2_MedalsStatsReport%20-%20220251110.pdf)
 
 ---
 
