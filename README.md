@@ -20,7 +20,7 @@ This project investigates the relationship between a nation's socio-economic fac
 - **Log-Scale Modeling:** Used log-transformation to normalize highly skewed GDP data for more accurate regression results.
 
 ## 📄 Full Report
-[📄 View Full Statistical Report (PDF)](https://github.com/c0672004-cmd/olympic-stats-analysis/blob/main/2_MedalsStatsReport%20-%20220251110.pdf)
+[📄 View Full Statistical Report (PDF)](https://github.com/c0672004-cmd/olympic-stats-analysis/blob/main/2_MedalsStatsReport%20-%20220251110.pdf?raw=true)
 
 ---
 
