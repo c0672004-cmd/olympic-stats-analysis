@@ -22,6 +22,8 @@ This project investigates the relationship between a nation's socio-economic fac
 ## 📄 Full Report
 For the complete 23-page statistical methodology, including ANOVA tests and VIF results:
 👉 **[Download / View Full Report PDF](https://github.com/c0672004-cmd/olympic-stats-analysis/blob/main/2_MedalsStatsReport%20-%20220251110.pdf?raw=true)**
+[📄 View the Full Statistical Report (PDF)](https://github.com/c0672004-cmd/olympic-stats-analysis/blob/main/2_MedalsStatsReport%20-%20220251110.pdf?)
+
 ---
 
 ## 🚀 How to Run the Analysis
