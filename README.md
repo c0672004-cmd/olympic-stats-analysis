@@ -1,5 +1,5 @@
 # 🏅 Olympic Success: A Statistical Socio-Economic Study
-### 🇫🇷 Sommaire du Projet (Version Française)
+### Sommaire du Projet (Version Française)
 Cette étude examine l'influence des facteurs socio-économiques (PIB et population) sur la performance olympique des nations. À l'aide de modèles de régression multivariée et de tests ANOVA réalisés sous R, j'ai identifié que la richesse nationale demeure le principal prédicteur du succès athlétique, tout en développant un indice d'efficacité pour mettre en lumière les pays surperformants.
 
 **By: Yuanyuan Wei** | *Maths & Stats Graduate* | 📍 Montreal, QC (PR Holder)
@@ -28,6 +28,7 @@ To ensure transparency and reproducibility, all source files are provided below:
 *   **R Analysis Script:** [analysis_script.R](2_MedalsStatsScript-220251110.Rmd) — *Contains full data cleaning, regression modeling, and ANOVA logic.*
 *   **Primary Dataset:** [MedalsStatsData.csv](1_MedalsStatsData-220251110%20copy.csv) — *The processed dataset combining Olympic history and economic indicators.*
 *   **Full Report:** [📄 View Full Statistical Report (PDF)](https://github.com/c0672004-cmd/olympic-stats-analysis/raw/main/2_MedalsStatsReport%20-%20220251110.pdf)
+*   **To view simply R codes with graphs and some analysis:** [MedalsProject R Codes with Graphs and Analysis](https://github.com/c0672004-cmd/olympic-stats-analysis/raw/main/medalsproject%20-%20R%20code%20and%20graph.pdf)
 
 ---
 
